@@ -1,0 +1,175 @@
+[
+ {
+  "n": 1,
+  "rid": "L0203184cc",
+  "input": "把工具袋打开给我看。",
+  "status": "done",
+  "mode": "5+10",
+  "director": 30.6,
+  "sec": 60.5,
+  "segs": [
+   [
+    5,
+    "首帧续接",
+    "ready",
+    "https://crsr-fnv.vivi-x.ai/clips/job_5b80595de4cc02c3d54702626f8a2c1a/job_5b80595de4cc02c3d54702626f8a2c1a.mp4",
+    null,
+    null
+   ],
+   [
+    10,
+    "参考图",
+    "ready",
+    "https://crsr-fnv.vivi-x.ai/clips/job_1593e7e0e459480e48a5d9fba6c43015/job_1593e7e0e459480e48a5d9fba6c43015.mp4",
+    null,
+    null
+   ]
+  ],
+  "lines": {
+   "seg1": [
+    "Go ahead. Look.",
+    ""
+   ],
+   "seg2": [
+    "Screwdriver, tape measure, three screws.",
+    "",
+    "Team is all here."
+   ]
+  },
+  "next": {
+   "cue": {
+    "zh": "他的工具袋摊开在门柱上，她的手搭在门闩上，招牌还靠在墙根。",
+    "en": "His tool bag lies open on the gatepost, her hand rests on the latch, and the sign still leans against the wall."
+   },
+   "A": {
+    "zh": "我拉开门闩，让他进院",
+    "en": "I slide the latch and let him in.",
+    "leads_to": "K03：他进院把招牌挂回支架，上面写着她的名字"
+   },
+   "B": {
+    "zh": "我把招牌递过门，让他在门外修",
+    "en": "I pass the sign over and let him fix it outside.",
+    "leads_to": "他隔着院门修招牌，她站在门内看着他动手"
+   }
+  },
+  "err": null,
+  "location": "海边温室院门",
+  "kiss": null
+ },
+ {
+  "n": 2,
+  "rid": "L020439cad",
+  "input": "你到底认不认识我？",
+  "status": "done",
+  "mode": "5+10",
+  "director": 37.3,
+  "sec": 65.8,
+  "segs": [
+   [
+    5,
+    "首帧续接",
+    "ready",
+    "https://crsr-fnv.vivi-x.ai/clips/job_5a0932ea2f24b5b1cc5b22132a352204/job_5a0932ea2f24b5b1cc5b22132a352204.mp4",
+    null,
+    null
+   ],
+   [
+    10,
+    "参考图",
+    "ready",
+    "https://crsr-fnv.vivi-x.ai/clips/job_80db03946eeaad08f8df3f281bd30b3a/job_80db03946eeaad08f8df3f281bd30b3a.mp4",
+    null,
+    null
+   ]
+  ],
+  "lines": {
+   "seg1": [
+    "Do you know me?",
+    "Yes. We've met."
+   ],
+   "seg2": [
+    "I won't lie to you. But I'll go slowly.",
+    "",
+    ""
+   ]
+  },
+  "next": {
+   "cue": {
+    "zh": "他承认见过她，却没说多少。她的手还搭在门闩上，院门仍然关着。",
+    "en": "He admits they've met but says no more. Her hand rests on the latch, the gate still closed."
+   },
+   "A": {
+    "zh": "我拉开门闩，让他进院",
+    "en": "I lift the latch and let him in.",
+    "leads_to": "他第一次走进院子，她站在花园里等他开口说清楚见过几次",
+    "trimmed": true
+   },
+   "B": {
+    "zh": "我转身朝小屋走去",
+    "en": "I head toward the cottage.",
+    "leads_to": "她走向小屋书桌，他留在院门口，不跟进来"
+   }
+  },
+  "err": null,
+  "location": "海边温室院门",
+  "kiss": null
+ },
+ {
+  "n": 3,
+  "rid": "L02060715f",
+  "input": "让他进院子，带他去温室看看",
+  "status": "done",
+  "mode": "5+10",
+  "director": 32.9,
+  "sec": 66.4,
+  "segs": [
+   [
+    5,
+    "首帧续接",
+    "ready",
+    "https://crsr-fnv.vivi-x.ai/clips/job_eb8a228251552501a049763cd5561510/job_eb8a228251552501a049763cd5561510.mp4",
+    null,
+    null
+   ],
+   [
+    10,
+    "参考图",
+    "ready",
+    "https://crsr-fnv.vivi-x.ai/clips/job_ebbfdf0c706eda2fcd3ef46515198b6e/job_ebbfdf0c706eda2fcd3ef46515198b6e.mp4",
+    null,
+    null
+   ]
+  ],
+  "lines": {
+   "seg1": [
+    "",
+    "May I come in?"
+   ],
+   "seg2": [
+    "",
+    "This way. Look around.",
+    "",
+    "Nice place. Needs saving."
+   ]
+  },
+  "next": {
+   "cue": {
+    "zh": "他站在温室长桌旁，她手里还拿着喷壶，桌上几盆植物等着救。",
+    "en": "He stands by the long table in the greenhouse, her watering can still in hand, a few plants waiting to be saved."
+   },
+   "A": {
+    "zh": "我把最蔫的那盆推给他",
+    "en": "I push the droopiest pot toward him.",
+    "leads_to": "他检查那盆植物，说出诊断，两人开始一起动手救它"
+   },
+   "B": {
+    "zh": "我带他去看窗户",
+    "en": "I lead him to the window.",
+    "leads_to": "温室右侧的玻璃窗前：他看到窗框的裂缝，开始量尺寸"
+   }
+  },
+  "err": null,
+  "location": "玻璃温室主厅",
+  "kiss": null
+ }
+]
