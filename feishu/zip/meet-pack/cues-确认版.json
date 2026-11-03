@@ -1,0 +1,51 @@
+[
+ {
+  "s": 9.28,
+  "e": 9.8,
+  "who": "Maisie",
+  "en": "Put it down.",
+  "zh": "放下。"
+ },
+ {
+  "s": 10.85,
+  "e": 13.87,
+  "who": "Rowan",
+  "en": "This? Your toes might have a problem with that.",
+  "zh": "这个？放了可真要砸脚。"
+ },
+ {
+  "s": 14.77,
+  "e": 18.95,
+  "who": "Maisie",
+  "en": "The sign. Put it down, and take a step back.",
+  "zh": "我是说，放下招牌，后退一点。"
+ },
+ {
+  "s": 21.33,
+  "e": 25.79,
+  "who": "Rowan",
+  "en": "Okay. Just so we are clear, I am not waterproof.",
+  "zh": "好吧。先说清楚，我可不防水。"
+ },
+ {
+  "s": 27.17,
+  "e": 30.35,
+  "who": "Rowan",
+  "en": "I'm Rowan. Here to fix the sign.",
+  "zh": "我是洛温。来修招牌的。"
+ },
+ {
+  "s": 31.29,
+  "e": 33.13,
+  "who": "Maisie",
+  "en": "You don't look like someone I hired.",
+  "zh": "你看着不像我叫来的。"
+ },
+ {
+  "s": 34.14,
+  "e": 36.82,
+  "who": "Rowan",
+  "en": "Bad introduction. Want me to start over?",
+  "zh": "那我介绍得不够好。需要重来吗？"
+ }
+]

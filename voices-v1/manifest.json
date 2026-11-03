@@ -1,0 +1,182 @@
+[
+ {
+  "key": "M1",
+  "role": "Rowan",
+  "zh": "明亮暖男",
+  "en": "bright warm, smile in the voice",
+  "voice_id": "MeetMeM1V19d6dee",
+  "prompt": "An original young adult male voice, perceived age 26 to 28. A warm bright baritenor with an audible smile, open and sunny. A playful rom-com lead who teases kindly, quick on the joke, then sincere. Native everyday American English. Spontaneous conversation at a garden gate, as if finding the words in the moment: fluid connected speech, contractions, small meaningful pauses, softened unstressed words. Clean dry recording. Avoid radio-host delivery, audiobook narration, robotic even timing, theatrical seduction, exaggerated breathing, music.",
+  "text": "This? Your toes might have a problem with that. ... Okay. Just so we are clear, I am not waterproof. ... I'm Rowan. Here to fix the sign. ... Bad introduction. Want me to start over?",
+  "file": "audio/M1.mp3"
+ },
+ {
+  "key": "M2",
+  "role": "Rowan",
+  "zh": "邻家清爽",
+  "en": "light boy-next-door tenor",
+  "voice_id": "MeetMeM2V1703a74",
+  "prompt": "An original young adult male voice, perceived age 26 to 28. A light clean tenor, boy-next-door, breezy and friendly, slightly nervous energy hidden behind good humour, youthful and unforced. Native everyday American English. Spontaneous conversation at a garden gate, as if finding the words in the moment: fluid connected speech, contractions, small meaningful pauses, softened unstressed words. Clean dry recording. Avoid radio-host delivery, audiobook narration, robotic even timing, theatrical seduction, exaggerated breathing, music.",
+  "text": "This? Your toes might have a problem with that. ... Okay. Just so we are clear, I am not waterproof. ... I'm Rowan. Here to fix the sign. ... Bad introduction. Want me to start over?",
+  "file": "audio/M2.mp3"
+ },
+ {
+  "key": "M3",
+  "role": "Rowan",
+  "zh": "松弛低调",
+  "en": "mellow relaxed baritone",
+  "voice_id": "MeetMeM3V1664df7",
+  "prompt": "An original young adult male voice, perceived age 26 to 28. A mellow medium baritone, relaxed and low-key, dry understated humour with a deadpan edge, never pushing a joke, warm underneath. Native everyday American English. Spontaneous conversation at a garden gate, as if finding the words in the moment: fluid connected speech, contractions, small meaningful pauses, softened unstressed words. Clean dry recording. Avoid radio-host delivery, audiobook narration, robotic even timing, theatrical seduction, exaggerated breathing, music.",
+  "text": "This? Your toes might have a problem with that. ... Okay. Just so we are clear, I am not waterproof. ... I'm Rowan. Here to fix the sign. ... Bad introduction. Want me to start over?",
+  "file": "audio/M3.mp3"
+ },
+ {
+  "key": "M4",
+  "role": "Rowan",
+  "zh": "微哑慵懒",
+  "en": "slightly husky, unhurried",
+  "voice_id": "MeetMeM4V1e3cf3c",
+  "prompt": "An original young adult male voice, perceived age 26 to 28. A warm slightly husky mid-range voice, unhurried, a gentle natural grain without forced rasp, teasing softly, confident without being smug. Native everyday American English. Spontaneous conversation at a garden gate, as if finding the words in the moment: fluid connected speech, contractions, small meaningful pauses, softened unstressed words. Clean dry recording. Avoid radio-host delivery, audiobook narration, robotic even timing, theatrical seduction, exaggerated breathing, music.",
+  "text": "This? Your toes might have a problem with that. ... Okay. Just so we are clear, I am not waterproof. ... I'm Rowan. Here to fix the sign. ... Bad introduction. Want me to start over?",
+  "file": "audio/M4.mp3"
+ },
+ {
+  "key": "M5",
+  "role": "Rowan",
+  "zh": "清亮利落",
+  "en": "crisp and lively",
+  "voice_id": "MeetMeM5V19bf15d",
+  "prompt": "An original young adult male voice, perceived age 26 to 28. A clear crisp youthful voice with lively rhythm and bounce, quick comic timing, expressive rises and falls, charming and quick-witted, energetic but conversational. Native everyday American English. Spontaneous conversation at a garden gate, as if finding the words in the moment: fluid connected speech, contractions, small meaningful pauses, softened unstressed words. Clean dry recording. Avoid radio-host delivery, audiobook narration, robotic even timing, theatrical seduction, exaggerated breathing, music.",
+  "text": "This? Your toes might have a problem with that. ... Okay. Just so we are clear, I am not waterproof. ... I'm Rowan. Here to fix the sign. ... Bad introduction. Want me to start over?",
+  "file": "audio/M5.mp3"
+ },
+ {
+  "key": "M6",
+  "role": "Rowan",
+  "zh": "温柔克制",
+  "en": "soft-spoken, tender",
+  "voice_id": "MeetMeM6V15c2a9d",
+  "prompt": "An original young adult male voice, perceived age 26 to 28. A soft-spoken gentle warm voice, intimate speaking volume but not whispering, careful and tender under the jokes, as if he already knows her and is hiding it. Native everyday American English. Spontaneous conversation at a garden gate, as if finding the words in the moment: fluid connected speech, contractions, small meaningful pauses, softened unstressed words. Clean dry recording. Avoid radio-host delivery, audiobook narration, robotic even timing, theatrical seduction, exaggerated breathing, music.",
+  "text": "This? Your toes might have a problem with that. ... Okay. Just so we are clear, I am not waterproof. ... I'm Rowan. Here to fix the sign. ... Bad introduction. Want me to start over?",
+  "file": "audio/M6.mp3"
+ },
+ {
+  "key": "F1",
+  "role": "Maisie",
+  "zh": "清冷警惕",
+  "en": "clear, cool, guarded",
+  "voice_id": "MeetMeF1V1907281",
+  "prompt": "An original young adult female voice, perceived age 24 to 26. A clear mid-range voice, cool and guarded at first, dry and level, firm without shouting, intelligence and a hint of humour underneath. Native everyday American English. Spontaneous conversation at a garden gate, as if finding the words in the moment: fluid connected speech, contractions, small meaningful pauses, softened unstressed words. Clean dry recording. Avoid radio-host delivery, audiobook narration, robotic even timing, theatrical seduction, exaggerated breathing, music.",
+  "text": "Put it down. ... The sign. Put it down, and take a step back. ... You don't look like someone I hired. ... We'll see how you do.",
+  "file": "audio/F1.mp3"
+ },
+ {
+  "key": "F2",
+  "role": "Maisie",
+  "zh": "低沉微哑",
+  "en": "warm alto, slight husk",
+  "voice_id": "MeetMeF2V1a8701c",
+  "prompt": "An original young adult female voice, perceived age 24 to 26. A warm low-mid alto with a slight natural husk, grounded and unimpressed, wry, relaxed authority, not sultry. Native everyday American English. Spontaneous conversation at a garden gate, as if finding the words in the moment: fluid connected speech, contractions, small meaningful pauses, softened unstressed words. Clean dry recording. Avoid radio-host delivery, audiobook narration, robotic even timing, theatrical seduction, exaggerated breathing, music.",
+  "text": "Put it down. ... The sign. Put it down, and take a step back. ... You don't look like someone I hired. ... We'll see how you do.",
+  "file": "audio/F2.mp3"
+ },
+ {
+  "key": "F3",
+  "role": "Maisie",
+  "zh": "清甜有力",
+  "en": "bright sweet but firm",
+  "voice_id": "MeetMeF3V134f0fa",
+  "prompt": "An original young adult female voice, perceived age 24 to 26. A bright sweet light voice with a firm backbone, youthful and clear, trying hard to sound stern and almost succeeding, charming without being childish. Native everyday American English. Spontaneous conversation at a garden gate, as if finding the words in the moment: fluid connected speech, contractions, small meaningful pauses, softened unstressed words. Clean dry recording. Avoid radio-host delivery, audiobook narration, robotic even timing, theatrical seduction, exaggerated breathing, music.",
+  "text": "Put it down. ... The sign. Put it down, and take a step back. ... You don't look like someone I hired. ... We'll see how you do.",
+  "file": "audio/F3.mp3"
+ },
+ {
+  "key": "F4",
+  "role": "Maisie",
+  "zh": "温柔谨慎",
+  "en": "soft, careful",
+  "voice_id": "MeetMeF4V1bc3d22",
+  "prompt": "An original young adult female voice, perceived age 24 to 26. A soft gentle voice, careful and a little uncertain, quiet but steady, tender tone with a thread of wariness, normal speaking volume, not breathy. Native everyday American English. Spontaneous conversation at a garden gate, as if finding the words in the moment: fluid connected speech, contractions, small meaningful pauses, softened unstressed words. Clean dry recording. Avoid radio-host delivery, audiobook narration, robotic even timing, theatrical seduction, exaggerated breathing, music.",
+  "text": "Put it down. ... The sign. Put it down, and take a step back. ... You don't look like someone I hired. ... We'll see how you do.",
+  "file": "audio/F4.mp3"
+ },
+ {
+  "key": "F5",
+  "role": "Maisie",
+  "zh": "干脆利落",
+  "en": "crisp, sharp humour",
+  "voice_id": "MeetMeF5V1e02822",
+  "prompt": "An original young adult female voice, perceived age 24 to 26. A crisp confident voice, quick and direct, sharp dry humour, clean consonants, a young woman who runs her own business and does not suffer fools. Native everyday American English. Spontaneous conversation at a garden gate, as if finding the words in the moment: fluid connected speech, contractions, small meaningful pauses, softened unstressed words. Clean dry recording. Avoid radio-host delivery, audiobook narration, robotic even timing, theatrical seduction, exaggerated breathing, music.",
+  "text": "Put it down. ... The sign. Put it down, and take a step back. ... You don't look like someone I hired. ... We'll see how you do.",
+  "file": "audio/F5.mp3"
+ },
+ {
+  "key": "F6",
+  "role": "Maisie",
+  "zh": "自然邻家",
+  "en": "natural girl-next-door",
+  "voice_id": "MeetMeF6V14e4825",
+  "prompt": "An original young adult female voice, perceived age 24 to 26. A natural easygoing girl-next-door voice, warm and unpolished, ordinary and real, cautious right now but ready to laugh. Native everyday American English. Spontaneous conversation at a garden gate, as if finding the words in the moment: fluid connected speech, contractions, small meaningful pauses, softened unstressed words. Clean dry recording. Avoid radio-host delivery, audiobook narration, robotic even timing, theatrical seduction, exaggerated breathing, music.",
+  "text": "Put it down. ... The sign. Put it down, and take a step back. ... You don't look like someone I hired. ... We'll see how you do.",
+  "file": "audio/F6.mp3"
+ },
+ {
+  "key": "M7",
+  "role": "Rowan",
+  "zh": "更暖一点",
+  "en": "warmer",
+  "voice_id": "MeetMeM7V2c2e052",
+  "prompt": "An original young adult male voice, perceived age 26 to 28. A clear crisp youthful voice with lively rhythm and bounce, quick comic timing, charming and quick-witted, conversational. Same lively clarity but warmer and rounder in tone, a real smile you can hear, friendly more than clever. Native everyday American English. Spontaneous conversation at a garden gate, as if finding the words in the moment: fluid connected speech, contractions, small meaningful pauses, softened unstressed words. Clean dry recording. Avoid radio-host delivery, audiobook narration, robotic even timing, theatrical seduction, exaggerated breathing, music.",
+  "text": "This? Your toes might have a problem with that. ... Okay. Just so we are clear, I am not waterproof. ... I'm Rowan. Here to fix the sign. ... Bad introduction. Want me to start over?",
+  "file": "audio/M7.mp3"
+ },
+ {
+  "key": "M8",
+  "role": "Rowan",
+  "zh": "更低一点",
+  "en": "a little lower",
+  "voice_id": "MeetMeM8V281e0e2",
+  "prompt": "An original young adult male voice, perceived age 26 to 28. A clear crisp youthful voice with lively rhythm and bounce, quick comic timing, charming and quick-witted, conversational. Pitched a little lower, a light baritone with fuller chest resonance, keeping the same quick bounce and clean consonants, more grown-up. Native everyday American English. Spontaneous conversation at a garden gate, as if finding the words in the moment: fluid connected speech, contractions, small meaningful pauses, softened unstressed words. Clean dry recording. Avoid radio-host delivery, audiobook narration, robotic even timing, theatrical seduction, exaggerated breathing, music.",
+  "text": "This? Your toes might have a problem with that. ... Okay. Just so we are clear, I am not waterproof. ... I'm Rowan. Here to fix the sign. ... Bad introduction. Want me to start over?",
+  "file": "audio/M8.mp3"
+ },
+ {
+  "key": "M9",
+  "role": "Rowan",
+  "zh": "更年轻活泼",
+  "en": "younger, livelier",
+  "voice_id": "MeetMeM9V2d90d5e",
+  "prompt": "An original young adult male voice, perceived age 26 to 28. A clear crisp youthful voice with lively rhythm and bounce, quick comic timing, charming and quick-witted, conversational. A touch younger and higher, more playful energy, wide expressive rises and falls, delighted by his own jokes without being silly. Native everyday American English. Spontaneous conversation at a garden gate, as if finding the words in the moment: fluid connected speech, contractions, small meaningful pauses, softened unstressed words. Clean dry recording. Avoid radio-host delivery, audiobook narration, robotic even timing, theatrical seduction, exaggerated breathing, music.",
+  "text": "This? Your toes might have a problem with that. ... Okay. Just so we are clear, I am not waterproof. ... I'm Rowan. Here to fix the sign. ... Bad introduction. Want me to start over?",
+  "file": "audio/M9.mp3"
+ },
+ {
+  "key": "M10",
+  "role": "Rowan",
+  "zh": "更松更懒",
+  "en": "more laid-back",
+  "voice_id": "MeetMeM10V28d3986",
+  "prompt": "An original young adult male voice, perceived age 26 to 28. A clear crisp youthful voice with lively rhythm and bounce, quick comic timing, charming and quick-witted, conversational. Same crisp diction but more laid-back timing, an easy unbothered charm, jokes dropped casually and slightly behind the beat. Native everyday American English. Spontaneous conversation at a garden gate, as if finding the words in the moment: fluid connected speech, contractions, small meaningful pauses, softened unstressed words. Clean dry recording. Avoid radio-host delivery, audiobook narration, robotic even timing, theatrical seduction, exaggerated breathing, music.",
+  "text": "This? Your toes might have a problem with that. ... Okay. Just so we are clear, I am not waterproof. ... I'm Rowan. Here to fix the sign. ... Bad introduction. Want me to start over?",
+  "file": "audio/M10.mp3"
+ },
+ {
+  "key": "M11",
+  "role": "Rowan",
+  "zh": "带点颗粒",
+  "en": "a little texture",
+  "voice_id": "MeetMeM11V2f6987a",
+  "prompt": "An original young adult male voice, perceived age 26 to 28. A clear crisp youthful voice with lively rhythm and bounce, quick comic timing, charming and quick-witted, conversational. A faint natural grain at the ends of phrases, slightly lived-in texture without any forced rasp, still clear and quick, a little more masculine. Native everyday American English. Spontaneous conversation at a garden gate, as if finding the words in the moment: fluid connected speech, contractions, small meaningful pauses, softened unstressed words. Clean dry recording. Avoid radio-host delivery, audiobook narration, robotic even timing, theatrical seduction, exaggerated breathing, music.",
+  "text": "This? Your toes might have a problem with that. ... Okay. Just so we are clear, I am not waterproof. ... I'm Rowan. Here to fix the sign. ... Bad introduction. Want me to start over?",
+  "file": "audio/M11.mp3"
+ },
+ {
+  "key": "M12",
+  "role": "Rowan",
+  "zh": "更真诚",
+  "en": "more sincere",
+  "voice_id": "MeetMeM12V2d31bcb",
+  "prompt": "An original young adult male voice, perceived age 26 to 28. A clear crisp youthful voice with lively rhythm and bounce, quick comic timing, charming and quick-witted, conversational. Quick and funny on the surface, but with an earnest, open sincerity underneath; the last question lands genuinely hopeful, as if her answer really matters to him. Native everyday American English. Spontaneous conversation at a garden gate, as if finding the words in the moment: fluid connected speech, contractions, small meaningful pauses, softened unstressed words. Clean dry recording. Avoid radio-host delivery, audiobook narration, robotic even timing, theatrical seduction, exaggerated breathing, music.",
+  "text": "This? Your toes might have a problem with that. ... Okay. Just so we are clear, I am not waterproof. ... I'm Rowan. Here to fix the sign. ... Bad introduction. Want me to start over?",
+  "file": "audio/M12.mp3"
+ }
+]
