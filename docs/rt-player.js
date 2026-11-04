@@ -1,7 +1,7 @@
 /* realtime 互动剧通用播放控件（2026-11-01）：进度条、时长、倍速，单击画面暂停和播放。
    第一次看某段内容时进度条只显示不能拖；这段看完过一次，再看时可以随意拖（记在本机 localStorage）。
    用法：页面放一个 #stage，里面正在播的 <video> 带 class="on"，<body> 播放时带 class="playing"。
-     RT.init({drama: '剧集id', zh: () => 是否中文, stage: '#stage', isPlaying: () => 正在播});
+     RT.init({drama: '剧集id', zh: () => 是否中文, stage: '#stage', isPlaying: () => 正在播, base: 1});  base：实际播放速度 = 显示的倍速 × base（例如 1.1：显示 1x、实际 1.1 倍）；RT.speed() 返回实际速度。
      RT.begin({key: '这段内容的唯一名字', parts: [{v: video元素, d: 秒数}, ...], label: '第 1 幕', jump: (i, t) => {...}, free: false});
      RT.part(i)  多段连播时切到第 i 段；RT.done(key) 这段看完了；RT.setVoices(fn) 另外同步暂停和变速的配音 <audio>，fn 返回元素列表。
    没调 begin 也能用：会把正在播的那个 video 当成一段。 */
@@ -34,7 +34,7 @@
   const PAUSE = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 4.5h4v15H6zM14 4.5h4v15h-4z"/></svg>';
   const RATES = [0.75, 1, 1.25, 1.5, 2];
   let drama = 'rt', zh = () => /^zh/i.test(navigator.language || ''), voices = () => [];
-  let cur = null, rate = 1, dragging = false, stage, bar, track, fill, knob, timeEl, labelEl, ppBtn, speedBtn, menu, pausedEl, hintEl, hintT;
+  let cur = null, rate = 1, base = 1, dragging = false, stage, bar, track, fill, knob, timeEl, labelEl, ppBtn, speedBtn, menu, pausedEl, hintEl, hintT;
   const store = {
     get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
     set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} },
@@ -52,9 +52,10 @@
   const total = () => cur ? cur.parts.reduce((a, p) => a + durOf(p), 0) : 0;
   const before = i => cur.parts.slice(0, i).reduce((a, p) => a + durOf(p), 0);
   const nowT = () => cur ? before(cur.i) + ((cur.parts[cur.i].v && cur.parts[cur.i].v.currentTime) || 0) : 0;
+  const real = () => rate * base;
   function applyRate() {
-    stage.querySelectorAll('video').forEach(v => { v.defaultPlaybackRate = rate; v.playbackRate = rate; });
-    (voices() || []).forEach(a => { if (a) { a.defaultPlaybackRate = rate; a.playbackRate = rate; } });
+    stage.querySelectorAll('video').forEach(v => { v.defaultPlaybackRate = real(); v.playbackRate = real(); });
+    (voices() || []).forEach(a => { if (a) { a.defaultPlaybackRate = real(); a.playbackRate = real(); } });
     speedBtn.textContent = rate === 1 ? '1x' : rate + 'x';
     menu.querySelectorAll('button').forEach(b => b.classList.toggle('on', Number(b.dataset.r) === rate));
   }
@@ -117,12 +118,13 @@
     bgmVol += Math.sign(want - bgmVol) * Math.min(0.03, Math.abs(want - bgmVol)); bgmEl.volume = bgmVol;
     if (want > 0 && bgmEl.paused) bgmEl.play().catch(() => {});
     if (want === 0 && bgmVol < 0.01 && !bgmEl.paused) bgmEl.pause();
-    bgmEl.playbackRate = songEl.playbackRate = rate;
+    bgmEl.playbackRate = rate; songEl.playbackRate = real();  // 唱段跟着画面走
   }
   const RT = window.RT = {
+    speed() { return real(); },
     mixState() { return { bgm: !bgmEl.paused, bgmVol: +bgmEl.volume.toFixed(2), song: !songEl.paused, songT: +songEl.currentTime.toFixed(1), mix: !!mix }; },
     init(o) {
-      o = o || {}; drama = o.drama || drama; if (o.zh) zh = o.zh; if (o.isPlaying) isPlaying = o.isPlaying; ignoreSel = o.ignore || ''; RT.destroy();
+      o = o || {}; drama = o.drama || drama; base = o.base || 1; if (o.zh) zh = o.zh; if (o.isPlaying) isPlaying = o.isPlaying; ignoreSel = o.ignore || ''; RT.destroy();
       stage = document.querySelector(o.stage || '#stage');
       if (!document.getElementById('rtStyle')) { const st = document.createElement('style'); st.id = 'rtStyle'; st.textContent = css; document.head.appendChild(st); }
       bar = document.createElement('div'); bar.id = 'rtBar'; bar.hidden = true;
@@ -158,7 +160,7 @@
       if (!once) document.addEventListener('keydown', e => { if (stage && e.code === 'Space' && playing() && !/INPUT|TEXTAREA/.test(document.activeElement.tagName)) { e.preventDefault(); toggle(); } });
       once = true;
       stage.addEventListener('play', () => { if (stage) applyRate(); }, true);
-      stage.addEventListener('loadedmetadata', e => { e.target.dataset.rtSrc = e.target.currentSrc; e.target.playbackRate = rate; paint(); }, true);
+      stage.addEventListener('loadedmetadata', e => { e.target.dataset.rtSrc = e.target.currentSrc; e.target.playbackRate = real(); paint(); }, true);
       applyRate();
       const me = (RT._loop = (RT._loop || 0) + 1);
       (function loop() { if (me !== RT._loop) return; try { paint(); } catch (e) {} requestAnimationFrame(loop); })();

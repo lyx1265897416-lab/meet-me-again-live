@@ -219,7 +219,7 @@ def state_text(s):
 def run_seg(rid, i, dur, prompt, first, frame_url, face_url, extra=(), no_scene=False):
     s = R[rid]['segs'][i]
     kw = dict(prompt=prompt, duration=dur, aspect_ratio='9:16')
-    if i == 1: s['qa_pad'] = 8  # V2.7：第 2 段查过才给地址，开播不再按出片时间倒推（第 1 段播完要停 6 秒），也不会播到一半才发现要重新生成
+    if i == 1: s['qa_pad'] = 8 if dur < 15 else 13  # V2.8：15 秒段实测比预计晚 2–10 秒（中位约 4 秒，两段同时在生成），多留 5 秒，宁可晚开播几秒也不在接缝停。V2.7：第 2 段查过才给地址，开播不再按出片时间倒推（第 1 段播完要停 6 秒），也不会播到一半才发现要重新生成
     use = (R[rid].get('spec') or {}).get('use_key'); key = R[rid].get('key_url')
     if first == 'bridge': kw['first_frame_image'] = frame_url; kw['last_frame_image'] = key  # V2.0：首帧上一刻、尾帧关键帧，一镜到底把动作演出来
     elif i == 1 and use == 'bridge': frame_url = key; kw['first_frame_image'] = key  # V2.0：第 2 段从变化之后的样子开始
@@ -389,7 +389,7 @@ def _worker(rid):
     if not frame_url: r.update(status='error', err='上一轮的末帧没准备好：' + s.get('frame_err', '')); save(rid); return
     extra = L.seg2_cast_refs(sp)
     ref_url = s.get('frame_ref') or frame_url  # 第 1 轮是去掉她的手的开场帧；这一轮成功后才丢掉（失败重发时还要用）
-    if s['mode'] == 'auto': r['mode'] = sp.get('dur_mode') or '5+15'; r['auto_mode'] = True; r['dur_upgraded'] = sp.get('dur_upgraded')  # V1.7：一个链接自动分流
+    if s['mode'] == 'auto': r['mode'] = sp.get('dur_mode') or '15+15'; r['auto_mode'] = True; r['dur_upgraded'] = sp.get('dur_upgraded')  # V1.7：一个链接自动分流
     lock = r['mode'] in L.SEG1_LOCK
     hands_now = bool(s.get('frame_hands')) and not (lock and ref_url != frame_url)  # 锁帧用的是无手开场帧时，首帧里没有她的手
     jacket_start = False; worn_now = []  # V2.0：衣服都走 wardrobe（Rafael 第 5–9 轮“他的外套”只有名字没有样子，牛仔、皮夹克、背包来回变）
@@ -424,7 +424,12 @@ def _worker(rid):
     r['segs'] = [{'dur': d, 'mode': '首尾帧到关键帧' if f == 'bridge' else '首尾帧锁' if f == 'lock' else ('首帧续接' if f else '参考图'), 'status': 'generating'} for d, _, f in segs]; save(rid)
     log('SUBMIT', rid, r['mode'], r['director'], 'director', r['director_wait'], 's')
     th = [threading.Thread(target=run_seg, args=(rid, i, d, p, f, ref_url if f == 'lock' else (frame_url if (f or (L.SEG2_FIRST and not extra)) else ref_url), face_url, extra if i == 1 else (), i == 1 and L.moved(sp, s.get('set') or director.OPEN_SET))) for i, (d, p, f) in enumerate(segs)]
-    for t in th: t.start(); time.sleep(0.2)
+    if str(r['mode']).startswith('15'):  # V2.8：Vivix 同一工作区基本一次跑一条，等第 1 段开工再交第 2 段，开播才早（别信这段直播 15+15 实测）
+        th[0].start(); t0 = time.time()
+        while time.time() - t0 < 30 and not (r['segs'][0].get('proc_at') or r['segs'][0].get('status') in ('ready', 'error')): time.sleep(0.3)
+        th[1].start()
+    else:
+        for t in th: t.start(); time.sleep(0.2)
     for t in th: t.join()
     ok = all(x['status'] == 'ready' for x in r['segs'])
     # V1.5 提速：不再校色（要等两段都好再重新编码第 2 段，播放页已经按原地址预载）

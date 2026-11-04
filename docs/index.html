@@ -146,7 +146,7 @@ body.lang-en .zh{display:none!important}
   </section>
   <div id="toast" hidden></div>
 </div>
-<script src="rt-player.js?v=3"></script>
+<script src="rt-player.js?v=4"></script>
 <script>
 (() => {
 const $ = id => document.getElementById(id);
@@ -168,7 +168,7 @@ const waitMusic = on => { waitTarget = on ? .3 : 0; if (on && wait.paused) wait.
 const LANGQ = (Q.get('lang') || '').toLowerCase();
 let lang = LANGQ.startsWith('zh') ? 'zh' : LANGQ.startsWith('en') ? 'en' : (/^zh/i.test(navigator.language || '') ? 'zh' : 'en');
 const T = (en, zh) => lang === 'zh' ? zh : en;
-RT.init({drama: 'meet-me-again-live', zh: () => lang === 'zh'});
+RT.init({drama: 'meet-me-again-live', zh: () => lang === 'zh', base: 1.1});  // Vicky 11-03：实际 1.1 倍速播放，倍速按钮仍显示 1x
 
 const applyLang = () => {
   document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en'; document.body.classList.toggle('lang-en', lang === 'en');
@@ -269,7 +269,7 @@ async function liveRound(kind, choice, said){
   const LOCAL = location.hostname === '127.0.0.1', M = LOCAL ? 1.5 : 3.0;  // 轮询、隧道延迟和第 2 段从 Vivix CDN 缓冲的余量（秒）
   const segErr = () => r && r.segs && r.segs.some(s => s.status === 'error');
   const seg1Ok = () => r && r.segs && r.segs[0] && r.segs[0].url && V[0].dataset.src === r.segs[0].url && V[0].readyState >= 3;
-  const seg2Soon = () => { const s2 = r.segs[1]; if (!s2 || s2.url) return true; const d1 = V[0].duration || r.segs[0].dur || 5; return s2.eta_left != null && s2.eta_left <= d1 - M - (s2.dur >= 15 ? 1.5 : 0); };
+  const seg2Soon = () => { const s2 = r.segs[1]; if (!s2 || s2.url) return true; const d1 = (V[0].duration || r.segs[0].dur || 5) / RT.speed(); return s2.eta_left != null && s2.eta_left <= d1 - M - (s2.dur >= 15 ? 1.5 : 0); };
   await hold(null, () => (r && r.status === 'error') || segErr() || (seg1Ok() && seg2Soon()));
   if (my !== liveRun){ clearInterval(poll); return; }
   const view = {};
