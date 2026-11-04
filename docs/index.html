@@ -182,7 +182,7 @@ applyLang(); $('modeMeta').textContent = MODE === 'auto' ? 'Auto length' : MODE.
 const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]));
 const setMode = m => { document.body.classList.remove('start', 'choosing', 'playing', 'waiting'); document.body.classList.add(m); };
 setMode('start');
-$('stage').style.background = '#000 url(media/poster.jpg?v=1) center/cover';
+$('stage').style.background = '#000 url(media/poster.jpg?v=2) center/cover';
 const chip = $('liveChip'); const setChip = h => { chip.innerHTML = h; chip.hidden = !h; };
 function toast(t){ const el = $('toast'); el.textContent = t; el.hidden = false; clearTimeout(toast.t); toast.t = setTimeout(() => el.hidden = true, 2200); }
 const subs = $('subs');
