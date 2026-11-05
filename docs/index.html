@@ -146,7 +146,7 @@ body.lang-en .zh{display:none!important}
   </section>
   <div id="toast" hidden></div>
 </div>
-<script src="rt-player.js?v=5"></script>
+<script src="rt-player.js?v=6"></script>
 <script>
 (() => {
 const $ = id => document.getElementById(id);
@@ -155,7 +155,7 @@ const Q = new URLSearchParams(location.search), K = Q.get('k') || '', MODE = Q.g
 const PAGES = location.hostname.endsWith('github.io');
 let API = location.origin;
 const relayReady = PAGES ? fetch('relay.json?t=' + Date.now(), {cache: 'no-store'}).then(r => r.json()).then(j => { API = j.url; }) : Promise.resolve();
-const CDN = {"media/OPEN.mp4": "https://storage.googleapis.com/waku-core-aicap/uploads/usr_4a6e5fb234d64da0a9429e519b299f07/167f75df8c704d71baf054bb440ae947/OPEN.mp4", "media/IDLE0.mp4": "https://storage.googleapis.com/waku-core-aicap/uploads/usr_4a6e5fb234d64da0a9429e519b299f07/49b473aec5594194bda94cce012fe90b/IDLE0.mp4", "media/poster.jpg": "https://storage.googleapis.com/waku-core-aicap/uploads/usr_4a6e5fb234d64da0a9429e519b299f07/a71cd189888f4ca4acb52aa573262d59/poster.jpg", "audio/DAYLIGHT.mp3": "https://storage.googleapis.com/waku-core-aicap/uploads/usr_4a6e5fb234d64da0a9429e519b299f07/601a3b2890f54bbea724270617d38a2e/DAYLIGHT.mp3"};
+const CDN = {"media/OPEN.mp4": "https://storage.googleapis.com/waku-core-aicap/uploads/usr_4a6e5fb234d64da0a9429e519b299f07/local/uau_4735ea9038d246cba8de4fc6a92c7a4b-meet-me-OPEN_v2.mp4", "media/IDLE0.mp4": "https://storage.googleapis.com/waku-core-aicap/uploads/usr_4a6e5fb234d64da0a9429e519b299f07/49b473aec5594194bda94cce012fe90b/IDLE0.mp4", "media/poster.jpg": "https://storage.googleapis.com/waku-core-aicap/uploads/usr_4a6e5fb234d64da0a9429e519b299f07/a71cd189888f4ca4acb52aa573262d59/poster.jpg", "audio/DAYLIGHT.mp3": "https://storage.googleapis.com/waku-core-aicap/uploads/usr_4a6e5fb234d64da0a9429e519b299f07/601a3b2890f54bbea724270617d38a2e/DAYLIGHT.mp3"};
 const SRC = p => PAGES && CDN[p] ? CDN[p] : p;
 const PREVIEW_NEXT = {cue: {zh: '他问完了，没有催，只是等她回答。', en: 'He asked. Now he just waits for her answer.'}, A: {zh: '那就正式约我，第一次约会你来安排。', en: 'Then ask me properly. You plan our first date.'}, B: {zh: '我需要时间。先吃早餐，答案晚点给你。', en: 'I need time. Breakfast first, the answer later.'}};
 const OPEN_CUES = [{"s": 9.28, "e": 9.8, "zh": "放下。", "en": "Put it down.", "who": "Maisie"}, {"s": 10.85, "e": 13.87, "zh": "这个？放了可真要砸脚。", "en": "This? Your toes might have a problem with that.", "who": "Rowan"}, {"s": 14.77, "e": 18.95, "zh": "我是说，放下招牌，后退一点。", "en": "The sign. Put it down, and take a step back.", "who": "Maisie"}, {"s": 21.33, "e": 25.79, "zh": "好吧。先说清楚，我可不防水。", "en": "Okay. Just so we are clear, I am not waterproof.", "who": "Rowan"}, {"s": 27.17, "e": 30.35, "zh": "我是洛温。来修招牌的。", "en": "I'm Rowan. Here to fix the sign.", "who": "Rowan"}, {"s": 31.29, "e": 33.13, "zh": "你看着不像我叫来的。", "en": "You don't look like someone I hired.", "who": "Maisie"}, {"s": 34.14, "e": 36.82, "zh": "那我介绍得不够好。需要重来吗？", "en": "Bad introduction. Want me to start over?", "who": "Rowan"}];
@@ -194,7 +194,22 @@ addEventListener('resize', placeSubs);
 // 一个画面切到另一个：新的先盖上，再停旧的
 function show(el){ const old = front; front = el; el.classList.add('on'); const retire = () => { if (old !== front){ old.classList.remove('on'); old.pause(); } }; requestAnimationFrame(retire); setTimeout(retire, 60); }
 function spare(){ return pool.find(v => v !== front && !v.dataset.keep) || pool.find(v => v !== front); }
-function load(el, src, loop){ el.loop = !!loop; el.muted = !!loop; el.src = src; el.load(); }
+function load(el, src, loop){ el.loop = !!loop; el.muted = !!loop; el.preload = 'auto'; el._tl = Date.now(); el._dl = null; el.src = src; el.load(); }
+// 缓冲够了才开播（11-05 Vicky：网页播放特别卡；同三真四假）：真的缓冲到前面 need 秒或到片尾才算够。不信 readyState 4：Chrome 的“能播完”是估的，
+// 第 1 段、第 2 段和待机循环同时下载、抢一条带宽时，第 1 段没下完就开播，中途会停。
+// 只到 readyState 3 的（iPhone 上暂停时不预载）等满 wait 秒也放行，免得一直不开播
+const srcOf = s => [s.url].filter(Boolean);
+function pick(v, s){ return s.url ? (v.dataset.started ? v.dataset.src : s.url) : null; }
+// 后台慢放（11-05）：浏览器只把暂停的视频缓冲到 13 秒左右就停（networkState 1），开播后才续传，续传慢就卡。
+// 等着的时候让这一段静音、0.0625 倍速在后台“播”，浏览器就一直下到结尾；真开播时退回 0 秒、恢复正常速度和声音。
+function warm(v){ if (!v.src || v.dataset.started || !v.paused || v.readyState < 1) return; const b = v.buffered; if (v.duration > 0 && b.length && b.end(b.length - 1) >= v.duration - 0.3) return;
+  v.dataset.warm = '1'; v.muted = true; try { v.playbackRate = 0.0625; } catch (e) {} v.play().catch(() => {}); }
+function bufEta(v){ const b = v.buffered, end = b.length ? b.end(b.length - 1) : 0; if (!(v.duration > 0) || !end) return Infinity; if (end >= v.duration - 0.3) return 0;
+  if (!v._b0 || v._bsrc !== v.src){ v._b0 = Date.now(); v._e0 = end; v._bsrc = v.src; return Infinity; } const dt = (Date.now() - v._b0) / 1000, rate = (end - v._e0) / dt;
+  return dt > 1.5 && rate > 0 ? (v.duration - end) / rate : Infinity; }  // 还要几秒下完（按这一段实测的缓冲速度）
+function enough(v, need, wait){ const b = v.buffered, end = b.length ? b.end(b.length - 1) : 0;
+  if (v.duration > 0 && end >= Math.min(v.duration - 0.3, v.currentTime + need)) return true;
+  if (v.readyState >= 3){ const now = Date.now(); if (!v._r3 || v._r3src !== v.src){ v._r3 = now; v._r3src = v.src; } return now - v._r3 >= (wait || 10000); } return false; }
 
 let sid = null, next = null, round = 0, busy = false;
 async function api(path, body){ await relayReady; const r = await fetch(API + path, {method: body ? 'POST' : 'GET', headers: {'Content-Type': 'application/json'}, body: body ? JSON.stringify(Object.assign({k: K}, body)) : undefined}); const raw = await r.text(); let j; try { j = JSON.parse(raw); } catch (e){ throw new Error(T('The server hiccuped. Please send again.', '服务刚才没响应，请再发一次')); } if (!r.ok) throw new Error(j.err || r.status); return j; }
@@ -217,7 +232,11 @@ let replayFn = null;
 function playOpening(){
   showSub(null); ov.currentTime = 0; ov.muted = false; ov.loop = false;
   RT.begin({key: 'OPEN', parts: [{v: ov, d: 101.5}]}); replayFn = playOpening;
-  ov.play().then(() => show(ov)).catch(() => { show(ov); toast(T('Tap the screen to start', '点一下画面开始')); });
+  const go = () => ov.play().then(() => show(ov)).catch(() => { show(ov); toast(T('Tap the screen to start', '点一下画面开始')); });
+  if (enough(ov, 8, 6000)) go();
+  else {  // 先在点击里起播再停住（保住播放权限），缓冲够了再接着播
+    ov.play().then(() => { if (!enough(ov, 8, 6000)){ ov.pause(); show(ov); toast(T('Loading the opening…', '开场片缓冲中…')); const t = setInterval(() => { if (enough(ov, 8, 6000)){ clearInterval(t); go(); } }, 250); } else show(ov); }).catch(() => { show(ov); toast(T('Tap the screen to start', '点一下画面开始')); });
+  }
   ov.ontimeupdate = () => { const t = ov.currentTime; const c = OPEN_CUES.find(q => t >= q.s && t <= q.e); showSub(c || null, c && (c.who === 'Her' ? T('Her', '她') : c.who)); };
   ov.onended = () => { RT.done('OPEN'); RT.clear(); ov.ontimeupdate = null; idle.currentTime = 0; idle.play().catch(() => {}); show(idle); openChoice(); };
 }
@@ -260,16 +279,18 @@ async function liveRound(kind, choice, said){
   const hold = (label, cond) => new Promise(res => { $('liveWait').hidden = false; (function f(){ if (my !== liveRun) return; $('lwT').textContent = ((Date.now() - t0) / 1000).toFixed(1); $('lwS').textContent = label || phase(); if (cond()){ res(); } else setTimeout(f, 100); })(); });
   try { rid = (await api('/api/round', {sid, kind, choice, input: kind === 'free' ? said.zh : undefined})).id; }
   catch (e){ $('liveWait').hidden = true; busy = false; setChip('<b>Not sent</b> · ' + esc(e.message)); toast(T('Live generation unavailable', '实时生成不可用')); openChoice(); if (kind === 'free') $('sayIn').value = said.zh; return; }
-  const V = [spare()]; V[0].dataset.keep = 1; V.push(spare()); delete V[0].dataset.keep;
+  const V = [spare()]; V[0].dataset.keep = 1; V.push(spare()); delete V[0].dataset.keep; V.forEach(v => delete v.dataset.started);
   const poll = setInterval(async () => {
     try { r = await api(`/api/round/${rid}?k=${encodeURIComponent(K)}`); } catch (e) {}
-    if (r && r.segs) r.segs.forEach((s, i) => { if (s.url && V[i].dataset.src !== s.url){ V[i].dataset.src = s.url; load(V[i], s.url); } const f = s.url + JSON.stringify(s.flip || []); if (s.url && V[i].dataset.flip !== f){ V[i].dataset.flip = f; RT.flip(V[i], s.flip); } });  // 一到就预载；V3.6 左右对调的镜头由中转标出（flip），播到那几秒水平镜像
+    if (r && r.segs) r.segs.forEach((s, i) => { const u = pick(V[i], s); if (u && V[i].dataset.src !== u){ V[i].dataset.src = u; load(V[i], u); } warm(V[i]); const f = s.url + JSON.stringify(s.flip || []); if (s.url && V[i].dataset.flip !== f){ V[i].dataset.flip = f; RT.flip(V[i], s.flip); } });  // 一到就预载；V3.6 左右对调的镜头由中转标出（flip），播到那几秒水平镜像
   }, 500);
   // V1.5 提速：第 1 段不等第 2 段出片——按第 2 段的预计出片时间（中转给的 eta_left）倒推开播，第 1 段播完正好接上第 2 段
   const LOCAL = location.hostname === '127.0.0.1', M = LOCAL ? 1.5 : 3.0;  // 轮询、隧道延迟和第 2 段从 Vivix CDN 缓冲的余量（秒）
   const segErr = () => r && r.segs && r.segs.some(s => s.status === 'error');
-  const seg1Ok = () => r && r.segs && r.segs[0] && r.segs[0].url && V[0].dataset.src === r.segs[0].url && V[0].readyState >= 3;
-  const seg2Soon = () => { const s2 = r.segs[1]; if (!s2 || s2.url) return true; const d1 = (V[0].duration || r.segs[0].dur || 5) / RT.speed(); return s2.eta_left != null && s2.eta_left <= d1 - M - (s2.dur >= 15 ? 1.5 : 0); };
+  const seg1Ok = () => r && r.segs && r.segs[0] && r.segs[0].url && srcOf(r.segs[0]).includes(V[0].dataset.src) && enough(V[0], 99, 25000) && (V[0]._dl != null || (V[0]._dl = (Date.now() - V[0]._tl) / 1000), true);
+  const seg2Soon = () => { const s2 = r.segs[1]; if (!s2) return true;
+    if (s2.url){ const d1 = (V[0].duration || r.segs[0].dur || 15) / RT.speed(), v = V[1]; if (!v._u0) v._u0 = Date.now();  // 11-05：第 2 段到了，按它实测的下载速度估：第 1 段播完前下得完才开播（宁可开头多等，不在中间停）；等 35 秒还估不出就照开
+      return srcOf(s2).includes(v.dataset.src) && (bufEta(v) <= d1 - 2 || Date.now() - v._u0 > 35000); } const d1 = (V[0].duration || r.segs[0].dur || 5) / RT.speed(); return s2.eta_left != null && s2.eta_left + (V[0]._dl != null ? V[0]._dl : 8) <= d1 - M - (s2.dur >= 15 ? 1.5 : 0); };  // 11-05：再留出浏览器下载第 2 段的时间（按第 1 段实测的下载用时）
   await hold(null, () => (r && r.status === 'error') || segErr() || (seg1Ok() && seg2Soon()));
   if (my !== liveRun){ clearInterval(poll); return; }
   const view = {};
@@ -278,7 +299,7 @@ async function liveRound(kind, choice, said){
     view.play_at = Date.now(); view.seg2_eta = r.segs[1] ? r.segs[1].eta_left : null;
     RT.begin({key: 'round:' + rid, mix: r.mix, parts: r.segs.map((x, i) => ({v: V[i], d: x.dur || x.seconds})), label: T(`Scene ${round + 1}`, `第 ${round + 1} 幕`)}); RT.part(0);
     await play(0); view.seg1_end = Date.now();
-    const ok2 = () => segErr() || (r.segs[1].url && V[1].dataset.src === r.segs[1].url && V[1].readyState >= 3);
+    const ok2 = () => segErr() || (r.segs[1].url && srcOf(r.segs[1]).includes(V[1].dataset.src) && enough(V[1], 99, 15000));
     if (!ok2()){ waitMusic(true); while (!ok2() && my === liveRun) await new Promise(res => setTimeout(res, 100)); waitMusic(false); }  // 第 2 段还没到：停在第 1 段最后一帧
     view.stall = (Date.now() - view.seg1_end) / 1000;
     if (my === liveRun && !segErr()){ RT.part(1); await play(1); RT.done('round:' + rid); }
@@ -305,6 +326,7 @@ async function liveRound(kind, choice, said){
   function subsFor(i, v){ const f = subLine(i, v); v.ontimeupdate = f; }
   function play(i){ return new Promise(res => {
     const v = V[i];
+    v.dataset.started = rid; v.pause(); delete v.dataset.warm; try { v.playbackRate = v.defaultPlaybackRate || 1; } catch (e) {}  // 退出后台慢放，用回播放器选的倍速
     v.currentTime = 0; v.muted = false; v.loop = false; let done = false;
     const end = () => { if (done) return; done = true; v.ontimeupdate = null; showSub(null); res(); };
     const sub1 = subLine(i, v);
